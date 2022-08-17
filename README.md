@@ -6,7 +6,7 @@
     * **Step 2: Run ngrok**
         * > ngrok http 1234
     * **Step 3: Test LineBot**
-        * > python main.py
+        * > python count.py
 
 ## Funtion
 Math, Random Sticker Message , AnyaImage
