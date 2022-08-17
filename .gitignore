@@ -1,0 +1,4 @@
+# Folder
+__pycache__
+.env
+main.py
