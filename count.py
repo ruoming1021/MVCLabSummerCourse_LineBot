@@ -36,10 +36,9 @@ async def callback(request: Request):
         raise HTTPException(404, detail='LineBot Handle Body Error !')
     return 'OK'
 
-@handler.add(MessageEvent, message=TextMessage)
 def handle_textmessage(event):
     message = TextSendMessage(text= event.message.text)
-    if message.text == "anya":
+    if message.text.lower() == "anya":
         id = random.randint(1, 40)
         url = f"https://spy-family.net/assets/img/special/anya/{id}.png"
         My_LineBotAPI.reply_message(
@@ -50,17 +49,17 @@ def handle_textmessage(event):
                 )
         )
     else:
-        1
-        num = re.sub('[a-zA-z!@#$%^&_= ]','',message.text)
-        if num.find("+")+1 >len(num)-1 or num.find("-")+1 >len(num)-1 or num.find("*")+1 >len(num)-1 or num.find("/")+1 >len(num)-1:
+        #num = re.sub('[a-zA-z!@#$%^&_= ]','',message.text) # can deal with Letters&Sign
+        #if num.find("+")+1 >len(num)-1 or num.find("-")+1 >len(num)-1 or num.find("*")+1 >len(num)-1 or num.find("/")+1 >len(num)-1:    
+        if re.findall('[a-zA-z!@#$%^&_]',message.text):
             My_LineBotAPI.reply_message(
                 event.reply_token,
-                TextSendMessage(text = "請輸入一數值以上")
+                TextSendMessage(text = "輸入包含非數值!!")
             )
         else:
             My_LineBotAPI.reply_message(
                 event.reply_token,
-                TextSendMessage(text = eval(str(num)))
+                TextSendMessage(text = eval(str(message.text)))
             )
 
 class My_Sticker:
